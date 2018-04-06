@@ -24,11 +24,12 @@ public class Sorteio extends AppCompatActivity {
         txtSort2 = (TextView) findViewById(R.id.txtSort2);
         txtNum = (TextView) findViewById(R.id.txtNum);
 
-        //Pega os valores da outra tela através de Intent
+        //Atribui os valores nas variáveis do tipo String da outra tela através de Intent
         sorteado1 = getIntent().getIntExtra("sort1", 0);
         sorteado2 = getIntent().getIntExtra("sort2", 1);
         nDigitado = getIntent().getIntExtra("nDigitado", 0);
 
+        //Concatena os valores nos TextViews da tela
         txtSort1.append("" + sorteado1);
         txtSort2.append("" + sorteado2);
         txtNum.append("" + nDigitado);
@@ -41,18 +42,23 @@ public class Sorteio extends AppCompatActivity {
         //Utilização do SharedPreferences para gravar a pontuação no arquivo de configuração
         SharedPreferences.Editor gravar = getSharedPreferences("nome_config", MODE_PRIVATE).edit();
 
+        //Grava a pontuação no arquivo de configuração
         gravar.putInt("pontuacao", pontuacao);
 
+        //Envia os valores para o SharedPreferences
         gravar.commit();
     }
 
     protected void onStart() {
         super.onStart();
+        //Atribui 50 a pontuação
         pontuacao = 50;
         //Utilização do SharedPreferences para ler a pontuação no arquivo de configuração
         SharedPreferences leitor = getSharedPreferences("nome_config", MODE_PRIVATE);
 
+        //Atribui a pontuação do arquivo de configuração na variável p
         int p = leitor.getInt("pontuacao", 0);
+        //Soma a pontuação anterior com a atual
         pontuacao += p;
     }
 }
